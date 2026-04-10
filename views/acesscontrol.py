@@ -26,7 +26,7 @@ def AccessControlView(page: ft.Page):
             return
         
         mid = int(member_id_field.value)
-        # Fetch status
+      
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute("""
