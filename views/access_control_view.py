@@ -4,7 +4,7 @@ from services.member_service import MemberService
 from database.connection import get_connection
 
 def AccessControlView(page: ft.Page):
-    # Banner area to show success or fail
+    # Banner area to show success or fail if you put the id of the member 
     status_banner = ft.Container(
         content=ft.Column([
             ft.Icon(ft.Icons.LOCK, size=64, color=ft.Colors.GREY_400),
@@ -14,6 +14,7 @@ def AccessControlView(page: ft.Page):
         width=500, alignment=ft.Alignment(0, 0)
     )
 
+    #here the user puts the ID of the member they want to check status 
     member_id_field = ft.TextField(
         label="Enter Member ID", 
         width=300, 
@@ -24,6 +25,7 @@ def AccessControlView(page: ft.Page):
     def validate_access(e):
         if not member_id_field.value:
             return
+        
         
         mid = int(member_id_field.value)
         # Fetch status
@@ -98,3 +100,5 @@ def AccessControlView(page: ft.Page):
     ], spacing=16, expand=True, scroll=ft.ScrollMode.AUTO)
 
     return ft.Container(content=main_layout, padding=28, expand=True)
+
+
