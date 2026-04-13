@@ -27,3 +27,38 @@ def PaymentsView(page: ft.Page):
             stat_card("Avg Ticket",     f"${avg:,.0f}",  "Per transaction",   ft.Colors.BLUE),
             stat_card("Transactions",   count,            "This month",        ft.Colors.PURPLE),
         ], spacing=12)
+    stats_container = ft.Container(content=make_stats())
+
+    membership_dropdown = ft.Dropdown(label="Select Membership", options=[])
+    amount_input = ft.TextField(label="Amount ($)", keyboard_type=ft.KeyboardType.NUMBER)
+
+    def load_memberships():
+        ms_list = MembershipService.get_all_memberships()
+        membership_dropdown.options = [
+            ft.dropdown.Option(key=str(m["id"]), text=f"#{m['id']} - {m['first_name']} {m['last_name']} ({m['plan_name']})")
+            for m in ms_list
+        ]
+        page.update()
+
+    def save_payment(e):
+        if not membership_dropdown.value or not amount_input.value:
+            return
+        
+        try:
+            amt = float(amount_input.value)
+            mid = int(membership_dropdown.value)
+            PaymentService.create_payment(mid, amt, "completed")
+            pay_dialog.open = False
+            refresh()
+            page.update()
+        except: pass
+
+    pay_dialog = ft.AlertDialog(
+        title=ft.Text("Record New Payment"),
+        content=ft.Column([membership_dropdown, amount_input], tight=True),
+        actions=[
+            ft.TextButton("Cancel", on_click=lambda _: setattr(pay_dialog, "open", False)),
+            ft.ElevatedButton("Save Payment", on_click=save_payment),
+        ]
+    )
+    page.overlay.append(pay_dialog)
