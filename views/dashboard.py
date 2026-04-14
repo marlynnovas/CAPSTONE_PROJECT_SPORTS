@@ -1,11 +1,13 @@
 import flet as ft
 from services.member_service import MemberService
 from services.access_service import AccessService
+from services.payment_service import PaymentService
+from services.plan_service import PlanService
+from services.membership_service import MembershipService
+from datetime import date, timedelta
 
 #look de la pagina
 def DashboardView(page: ft.Page):
-
-  
     def stat_card(title, value, subtitle, icon, color):
         return ft.Container(
             content=ft.Column([
@@ -31,6 +33,7 @@ def DashboardView(page: ft.Page):
     last_name_input  = ft.TextField(label="Last Name")
     email_input      = ft.TextField(label="Email")
 
+    #guardar miembro
     def save_member(e):
             mid = MemberService.create_member(first_name_input.value, last_name_input.value, email_input.value, "")
             if mid:
@@ -46,7 +49,7 @@ def DashboardView(page: ft.Page):
             actions=[ft.TextButton("Cancel", on_click=lambda _: setattr(new_member_dialog, "open", False)), 
                     ft.ElevatedButton("Create", on_click=save_member)]
     )
-        page.overlay.append(new_member_dialog)
+    page.overlay.append(new_member_dialog)
 
     membership_dropdown = ft.Dropdown(label="Select Membership", options=[])
     payment_amount = ft.TextField(label="Amount ($)", keyboard_type=ft.KeyboardType.NUMBER)
@@ -109,11 +112,11 @@ member_id_log = ft.TextField(label="Member ID", keyboard_type=ft.KeyboardType.NU
         bgcolor=ft.Colors.SURFACE_CONTAINER, border_radius=12, padding=18
     )
 
- total_m = MemberService.count_members()
-    active_m = MemberService.count_by_status("active")
-    rev_mtd = PaymentService.revenue_mtd()
-    acc_today = AccessService.count_today()
-    pend_b = PaymentService.count_by_status("pending")
+    total_m = MemberService.count_members()
+        active_m = MemberService.count_by_status("active")
+        rev_mtd = PaymentService.revenue_mtd()
+        acc_today = AccessService.count_today()
+        pend_b = PaymentService.count_by_status("pending")
 
     stats_row = ft.Row([
         stat_card("Total Members",  total_m,   "All registered",     ft.Icons.PEOPLE,    ft.Colors.BLUE_600),
