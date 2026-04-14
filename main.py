@@ -5,6 +5,10 @@ from database.connection import init_db
 from views.access_view import AccessLogView
 from views.members_view import MembersView
 from views.access_control_view import AccessControlView
+from views.reports_view import ReportsView
+from views.plans_view import PlansView
+from views.payments_view import PaymentsView
+from views.access_view import AccessLogView
 
 
 def main(page: ft.Page):
@@ -24,7 +28,11 @@ def main(page: ft.Page):
         views = [
             AccessControlView,  # this is the gate
             AccessLogView,       # this is the hisotry of entries , denieds... etc 
-            MembersView
+            MembersView,
+            PaymentsView,
+            ReportsView,
+            PlansView
+
         ]
 
         content_area.content = views[index](page)
@@ -52,6 +60,22 @@ def main(page: ft.Page):
                 selected_icon=ft.Icons.PEOPLE,
                 label="Members",
             ),
+            ft.NavigationRailDestination(
+                icon=ft.Icons.INSERT_CHART_OUTLINED,
+                selected_icon=ft.Icons.INSERT_CHART,
+                label="Reports",
+            ),
+            ft.NavigationRailDestination(
+                icon=ft.Icons.LIST_ALT_OUTLINED,
+                selected_icon=ft.Icons.LIST_ALT,
+                label="Plans",
+            ),
+            ft.NavigationRailDestination(
+                icon=ft.Icons.PAYMENTS_OUTLINED,
+                selected_icon=ft.Icons.PAYMENTS,
+                label="Payments",
+            ),
+
         ],
         on_change=lambda e: change_view(e.control.selected_index),
     )
