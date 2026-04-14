@@ -74,3 +74,69 @@ def PlansView(page: ft.Page):
         ]
     )
     page.overlay.append(dialog)
+
+
+    table = ft.DataTable(
+        columns=[
+            ft.DataColumn(ft.Text("ID")),
+            ft.DataColumn(ft.Text("Name")),
+            ft.DataColumn(ft.Text("Price")),
+            ft.DataColumn(ft.Text("Duration")),
+            ft.DataColumn(ft.Text("Actions")),
+        ],
+        rows=[],
+        expand=True
+    )
+
+    def refresh_table(e=None):
+        table.rows.clear()
+        plans = PlanService.get_all_plans()
+        for p in plans:
+            def delete_cb(_, pid=p["id"]):
+                PlanService.delete_plan(pid)
+                refresh_table()
+                page.update()
+            
+            def edit_cb(_, plan=p):
+                open_edit_dialog(plan)
+
+            table.rows.append(ft.DataRow(cells=[
+                ft.DataCell(ft.Text(str(p["id"]))),
+                ft.DataCell(ft.Text(p["name"], weight=ft.FontWeight.W_500)),
+                ft.DataCell(ft.Text(f"${p['price']:,.2f}")),
+                ft.DataCell(ft.Text(f"{p['duration_months']} mo.")),
+                ft.DataCell(ft.Row([
+                    ft.IconButton(ft.Icons.EDIT, icon_color=ft.Colors.BLUE_400, on_click=edit_cb),
+                    ft.IconButton(ft.Icons.DELETE, icon_color=ft.Colors.RED_400, on_click=delete_cb),
+                ])),
+            ]))
+        page.update()
+
+    refresh_table()
+
+    # lo visual
+    def plan_card(title, price, icon, color):
+        return ft.Container(
+            content=ft.Column([
+                ft.Icon(icon, size=32, color=color),
+                ft.Text(title, size=16, weight=ft.FontWeight.BOLD),
+                ft.Text(f"From ${price}"),
+            ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+            padding=20, border_radius=12, bgcolor=ft.Colors.SURFACE_CONTAINER, expand=True
+        )
+
+    summary_cards = ft.Row([
+        plan_card("Basic", "1,500", ft.Icons.FITNESS_CENTER, ft.Colors.BLUE_400),
+        plan_card("Standard", "4,000", ft.Icons.LIST, ft.Colors.PURPLE_400),
+        plan_card("Premium", "15,000", ft.Icons.STAR, ft.Colors.AMBER_400),
+    ], spacing=20)
+
+    return ft.Container(content=ft.Column([
+        header,
+        summary_cards,
+        ft.Divider(height=10, color=ft.Colors.TRANSPARENT),
+        ft.Container(
+            content=ft.Column([table], scroll=ft.ScrollMode.AUTO, expand=True),
+            bgcolor=ft.Colors.SURFACE_CONTAINER, border_radius=12, padding=10, expand=True
+        )
+    ], spacing=16, expand=True), padding=28, expand=True)
