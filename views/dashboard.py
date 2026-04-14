@@ -51,18 +51,15 @@ def DashboardView(page: ft.Page):
     )
     page.overlay.append(new_member_dialog)
 
-    membership_dropdown = ft.Dropdown(label="Select Membership", options=[])
-    payment_amount = ft.TextField(label="Amount ($)", keyboard_type=ft.KeyboardType.NUMBER)
+    #poner payment 
 
-#poner payment 
-
-def load_ms_options(e=None):
-        ms_list = MembershipService.get_all_memberships()
-        membership_dropdown.options = [
-            ft.dropdown.Option(key=str(m["id"]), text=f"#{m['id']} - {m['first_name']} {m['last_name']}")
-            for m in ms_list
-        ]
-        page.update()
+    def load_ms_options(e=None):
+            ms_list = MembershipService.get_all_memberships()
+            membership_dropdown.options = [
+                ft.dropdown.Option(key=str(m["id"]), text=f"#{m['id']} - {m['first_name']} {m['last_name']}")
+                for m in ms_list
+            ]
+            page.update()
 
     def submit_payment(e):
         if membership_dropdown.value and payment_amount.value:
@@ -78,10 +75,10 @@ def load_ms_options(e=None):
     )
     page.overlay.append(payment_dialog)
 
-#poner el member info manual 
+    #poner el member info manual 
 
-member_id_log = ft.TextField(label="Member ID", keyboard_type=ft.KeyboardType.NUMBER)
-    
+    member_id_log = ft.TextField(label="Member ID", keyboard_type=ft.KeyboardType.NUMBER)
+        
     def submit_log(e):
         if member_id_log.value:
             AccessService.log_access(int(member_id_log.value), True, "Manual entry logged from dashboard")
@@ -93,7 +90,7 @@ member_id_log = ft.TextField(label="Member ID", keyboard_type=ft.KeyboardType.NU
         content=ft.Column([member_id_log], tight=True),
         actions=[ft.TextButton("Cancel", on_click=lambda _: setattr(log_dialog, "open", False)), 
                  ft.ElevatedButton("Log Entry", on_click=submit_log)]
-    )
+        )
     page.overlay.append(log_dialog)
 
 
@@ -102,21 +99,21 @@ member_id_log = ft.TextField(label="Member ID", keyboard_type=ft.KeyboardType.NU
             ft.Text("Quick Actions", size=14, weight=ft.FontWeight.BOLD),
             ft.Row([
                 ft.ElevatedButton("New Member",     icon=ft.Icons.PERSON_ADD,  bgcolor=ft.Colors.BLUE_700,  color=ft.Colors.WHITE,
-                                  on_click=lambda _: setattr(new_member_dialog, "open", True)),
+                                on_click=lambda _: setattr(new_member_dialog, "open", True)),
                 ft.ElevatedButton("Record Payment", icon=ft.Icons.ADD_CARD,    bgcolor=ft.Colors.GREEN_700, color=ft.Colors.WHITE,
-                                  on_click=lambda _: (load_ms_options(), setattr(payment_dialog, "open", True))),
+                                on_click=lambda _: (load_ms_options(), setattr(payment_dialog, "open", True))),
                 ft.ElevatedButton("Manual Log",     icon=ft.Icons.LOGIN,       bgcolor=ft.Colors.ORANGE_700,color=ft.Colors.WHITE,
-                                  on_click=lambda _: setattr(log_dialog, "open", True)),
-            ], spacing=10),
-        ]),
-        bgcolor=ft.Colors.SURFACE_CONTAINER, border_radius=12, padding=18
+                                on_click=lambda _: setattr(log_dialog, "open", True)),
+                ], spacing=10),
+            ]),
+            bgcolor=ft.Colors.SURFACE_CONTAINER, border_radius=12, padding=18
     )
 
     total_m = MemberService.count_members()
-        active_m = MemberService.count_by_status("active")
-        rev_mtd = PaymentService.revenue_mtd()
-        acc_today = AccessService.count_today()
-        pend_b = PaymentService.count_by_status("pending")
+    active_m = MemberService.count_by_status("active")
+    rev_mtd = PaymentService.revenue_mtd()
+    acc_today = AccessService.count_today()
+    end_b = PaymentService.count_by_status("pending")
 
     stats_row = ft.Row([
         stat_card("Total Members",  total_m,   "All registered",     ft.Icons.PEOPLE,    ft.Colors.BLUE_600),
@@ -126,7 +123,7 @@ member_id_log = ft.TextField(label="Member ID", keyboard_type=ft.KeyboardType.NU
         stat_card("Pending Bills",  pend_b,    "Unpaid items",       ft.Icons.RECEIPT,   ft.Colors.RED_600),
     ], spacing=12)
 
-    # Activity table
+        # Activity table
     logs = AccessService.get_recent_logs(limit=8)
     activity_table = ft.DataTable(
         columns=[ft.DataColumn(ft.Text("Member")), ft.DataColumn(ft.Text("Time")), ft.DataColumn(ft.Text("Result"))],
