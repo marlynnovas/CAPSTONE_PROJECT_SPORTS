@@ -22,9 +22,11 @@ def main(page: ft.Page):
 
     def change_view(index):
         views = [
-            AccessControlView,  # this is the gate
-            AccessLogView,       # this is the hisotry of entries , denieds... etc 
-            MembersView
+            AccessControlView,# this is the gate 
+            AccessLogView,# this is the hisotry of entries , denieds... etc 
+            MembersView,
+                   
+            
         ]
 
         content_area.content = views[index](page)
@@ -36,7 +38,7 @@ def main(page: ft.Page):
         label_type=ft.NavigationRailLabelType.ALL,
         min_width=100,
         min_extended_width=180,
-        bgcolor=ft.Colors.SURFACE_CONTAINER_HIGHEST,
+        bgcolor=ft.Colors.BLACK,
         group_alignment=-0.9,
         destinations=[
             ft.NavigationRailDestination(

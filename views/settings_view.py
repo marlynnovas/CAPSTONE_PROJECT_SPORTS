@@ -41,7 +41,7 @@ def SettingsView(page: ft.Page):
         ft.Divider(height=2, color=ft.Colors.TRANSPARENT),
         ft.Container(
             content=app_info,
-            bgcolor=ft.Colors.SURFACE_CONTAINER,
+            bgcolor=ft.Colors.BLACK,
             border_radius=10,
             padding=30,
             expand=True

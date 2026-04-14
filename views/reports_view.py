@@ -77,7 +77,7 @@ def ReportsView(page: ft.Page):
             ft.Text("Access Issues Summary", size=20, weight=ft.FontWeight.BOLD),
             ft.Container(
                 content=ft.Column([get_denied_table()], scroll=ft.ScrollMode.AUTO, expand=True),
-                bgcolor=ft.Colors.SURFACE_CONTAINER, border_radius=12, padding=15, expand=True
+                bgcolor=ft.Colors.BLACK, border_radius=12, padding=15, expand=True
             ),
         ], spacing=16, expand=True, scroll=ft.ScrollMode.AUTO),
         padding=28, expand=True

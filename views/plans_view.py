@@ -137,6 +137,6 @@ def PlansView(page: ft.Page):
         ft.Divider(height=10, color=ft.Colors.TRANSPARENT),
         ft.Container(
             content=ft.Column([table], scroll=ft.ScrollMode.AUTO, expand=True),
-            bgcolor=ft.Colors.SURFACE_CONTAINER, border_radius=12, padding=10, expand=True
+            bgcolor=ft.Colors.BLACK, border_radius=12, padding=10, expand=True
         )
     ], spacing=16, expand=True), padding=28, expand=True)

@@ -10,7 +10,7 @@ def AccessControlView(page: ft.Page):
             ft.Icon(ft.Icons.LOCK, size=64, color=ft.Colors.GREY_400),
             ft.Text("Waiting for validation...", size=18, color=ft.Colors.ON_SURFACE_VARIANT)
         ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
-        padding=40, border_radius=15, bgcolor=ft.Colors.SURFACE_CONTAINER, 
+        padding=40, border_radius=15, bgcolor=ft.Colors.BLACK, 
         width=500, alignment=ft.Alignment(0, 0)
     )
 
@@ -92,7 +92,7 @@ def AccessControlView(page: ft.Page):
                 ], spacing=10),
                 status_banner
             ], spacing=20, horizontal_alignment=ft.CrossAxisAlignment.CENTER),
-            bgcolor=ft.Colors.SURFACE_CONTAINER,
+            bgcolor=ft.Colors.BLACK,
             padding=40, border_radius=20, alignment=ft.Alignment(0, 0)
         ),
         ft.Divider(height=10, color=ft.Colors.TRANSPARENT),

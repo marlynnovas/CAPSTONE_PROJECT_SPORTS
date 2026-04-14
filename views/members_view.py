@@ -12,7 +12,7 @@ def MembersView(page: ft.Page):
                 ft.Text(str(val), size=24, weight=ft.FontWeight.BOLD, color=clr),
                 ft.Text(title, size=12, color=ft.Colors.ON_SURFACE_VARIANT),
             ], spacing=2),
-            bgcolor=ft.Colors.SURFACE_CONTAINER, border_radius=10, padding=16, expand=True
+            bgcolor=ft.Colors.BLACK, border_radius=10, padding=16, expand=True
         )
 
     def make_stats():
@@ -152,7 +152,7 @@ def MembersView(page: ft.Page):
             stats_container,
             ft.Container(
                 content=ft.Column([table], scroll=ft.ScrollMode.AUTO, expand=True),
-                bgcolor=ft.Colors.SURFACE_CONTAINER, border_radius=12, padding=18, expand=True
+                bgcolor=ft.Colors.BLACK, border_radius=12, padding=18, expand=True
             ),
         ], spacing=16, expand=True),
         padding=28, expand=True

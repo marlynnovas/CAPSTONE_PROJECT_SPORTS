@@ -10,7 +10,7 @@ def AccessLogView(page: ft.Page):
                 ft.Text(str(val), size=24, weight=ft.FontWeight.BOLD, color=clr),
                 ft.Text(title, size=12, color=ft.Colors.ON_SURFACE_VARIANT),
             ], spacing=2),
-            bgcolor=ft.Colors.SURFACE_CONTAINER, border_radius=10, padding=16, expand=True
+            bgcolor=ft.Colors.BLACK, border_radius=10, padding=16, expand=True
         )
 
     def make_stats():
@@ -51,7 +51,7 @@ def AccessLogView(page: ft.Page):
                     vertical_alignment=ft.CrossAxisAlignment.END
                 )
             ]),
-            bgcolor=ft.Colors.SURFACE_CONTAINER, border_radius=12, padding=18, expand=True
+            bgcolor=ft.Colors.BLACK, border_radius=12, padding=18, expand=True
         )
 
     traffic_container = ft.Container(content=make_traffic(), expand=True)
@@ -76,7 +76,7 @@ def AccessLogView(page: ft.Page):
                     ]
                 ]
             ], spacing=10),
-            bgcolor=ft.Colors.SURFACE_CONTAINER, border_radius=12, padding=18, expand=True
+            bgcolor=ft.Colors.BLACK, border_radius=12, padding=18, expand=True
         )
 
     outcome_container = ft.Container(content=make_outcome(), expand=True)
@@ -138,7 +138,7 @@ def AccessLogView(page: ft.Page):
             ft.Text("Access History", size=18, weight=ft.FontWeight.BOLD),
             ft.Container(
                 content=ft.Column([table], scroll=ft.ScrollMode.AUTO, expand=True),
-                bgcolor=ft.Colors.SURFACE_CONTAINER, border_radius=12, padding=10, expand=True
+                bgcolor=ft.Colors.BLACK, border_radius=12, padding=10, expand=True
             ),
         ], spacing=16, expand=True, scroll=ft.ScrollMode.AUTO),
         padding=28, expand=True
