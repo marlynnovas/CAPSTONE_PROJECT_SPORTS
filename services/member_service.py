@@ -70,7 +70,7 @@ class MemberService:
         cursor = conn.cursor()
         try:
             cursor.execute(
-                "INSERT INTO members (first_name, last_name, email, phone,) VALUES (?, ?, ?, ?)",
+                "INSERT INTO members (first_name, last_name, email, phone,) VALUES (?, ?, ?, ?)"
                 (first_name, last_name, email, phone),
             )
             conn.commit()

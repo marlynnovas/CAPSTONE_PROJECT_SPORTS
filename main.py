@@ -27,17 +27,13 @@ def main(page: ft.Page):
 
     def change_view(index):
         views = [
-            AccessControlView,# this is the gate 
-            AccessLogView,# this is the hisotry of entries , denieds... etc 
-            MembersView,
-            ReportsView,
-            PlansView,
-            PaymentsView,
-            DashboardView,
-
-
-                   
-            
+            DashboardView,     
+            MembersView,       
+            PlansView,         
+            PaymentsView,      
+            AccessControlView, #(Gate)
+            AccessLogView,     #(History)
+            ReportsView,       
         ]
 
         content_area.content = views[index](page)
