@@ -28,10 +28,10 @@ def main(page: ft.Page):
         views = [
             AccessControlView,# this is the gate 
             AccessLogView,# this is the hisotry of entries , denieds... etc 
-            MembersView,
-            ReportsView, 
-            PlansView,
-            PaymentsView       
+            MembersView, # this is where you see the members and what type 
+            ReportsView, #shows the entries and if they were denied
+            PlansView, #type of membership
+            PaymentsView  #payments      
         ]
 
         content_area.content = views[index](page)
