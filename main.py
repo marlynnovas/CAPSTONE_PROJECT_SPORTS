@@ -29,8 +29,9 @@ def main(page: ft.Page):
             AccessControlView,# this is the gate 
             AccessLogView,# this is the hisotry of entries , denieds... etc 
             MembersView,
-                   
-            
+            ReportsView, 
+            PlansView,
+            PaymentsView       
         ]
 
         content_area.content = views[index](page)
