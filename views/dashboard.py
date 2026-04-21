@@ -53,6 +53,10 @@ def DashboardView(page: ft.Page):
 
     #poner payment 
 
+    membership_dropdown = ft.Dropdown(label="Select Membership", options=[])
+    payment_amount = ft.TextField(label="Amount ($)", keyboard_type=ft.KeyboardType.NUMBER)
+
+
     def load_ms_options(e=None):
             ms_list = MembershipService.get_all_memberships()
             membership_dropdown.options = [
@@ -113,7 +117,7 @@ def DashboardView(page: ft.Page):
     active_m = MemberService.count_by_status("active")
     rev_mtd = PaymentService.revenue_mtd()
     acc_today = AccessService.count_today()
-    end_b = PaymentService.count_by_status("pending")
+    pend_b = PaymentService.count_by_status("pending")
 
     stats_row = ft.Row([
         stat_card("Total Members",  total_m,   "All registered",     ft.Icons.PEOPLE,    ft.Colors.BLUE_600),
@@ -123,7 +127,7 @@ def DashboardView(page: ft.Page):
         stat_card("Pending Bills",  pend_b,    "Unpaid items",       ft.Icons.RECEIPT,   ft.Colors.RED_600),
     ], spacing=12)
 
-        # Activity table
+  
     logs = AccessService.get_recent_logs(limit=8)
     activity_table = ft.DataTable(
         columns=[ft.DataColumn(ft.Text("Member")), ft.DataColumn(ft.Text("Time")), ft.DataColumn(ft.Text("Result"))],

@@ -9,6 +9,7 @@ from views.reports_view import ReportsView
 from views.plans_view import PlansView
 from views.payments_view import PaymentsView
 from views.access_view import AccessLogView
+from views.dashboard import DashboardView
 
 
 def main(page: ft.Page):
@@ -29,6 +30,12 @@ def main(page: ft.Page):
             AccessControlView,# this is the gate 
             AccessLogView,# this is the hisotry of entries , denieds... etc 
             MembersView,
+            ReportsView,
+            PlansView,
+            PaymentsView,
+            DashboardView,
+
+
                    
             
         ]
@@ -46,24 +53,16 @@ def main(page: ft.Page):
         group_alignment=-0.9,
         destinations=[
             ft.NavigationRailDestination(
-                icon=ft.Icons.LOGIN,
-                label="Gate",
+                icon=ft.Icons.DASHBOARD_OUTLINED,
+                selected_icon=ft.Icons.DASHBOARD,
+                label="Dashboard",
             ),
-            ft.NavigationRailDestination(
-                icon=ft.Icons.HISTORY,
-                label="History",
-            ),
-            ft.NavigationRailDestination(
+             ft.NavigationRailDestination(
                 icon=ft.Icons.PEOPLE_OUTLINED,
                 selected_icon=ft.Icons.PEOPLE,
                 label="Members",
             ),
-            ft.NavigationRailDestination(
-                icon=ft.Icons.INSERT_CHART_OUTLINED,
-                selected_icon=ft.Icons.INSERT_CHART,
-                label="Reports",
-            ),
-            ft.NavigationRailDestination(
+                ft.NavigationRailDestination(
                 icon=ft.Icons.LIST_ALT_OUTLINED,
                 selected_icon=ft.Icons.LIST_ALT,
                 label="Plans",
@@ -73,6 +72,23 @@ def main(page: ft.Page):
                 selected_icon=ft.Icons.PAYMENTS,
                 label="Payments",
             ),
+           
+            ft.NavigationRailDestination(
+                icon=ft.Icons.LOGIN,
+                label="Gate",
+            ),
+            ft.NavigationRailDestination(
+                icon=ft.Icons.HISTORY,
+                label="History",
+            ),
+           
+            ft.NavigationRailDestination(
+                icon=ft.Icons.INSERT_CHART_OUTLINED,
+                selected_icon=ft.Icons.INSERT_CHART,
+                label="Reports",
+            ),
+        
+            
 
         ],
         on_change=lambda e: change_view(e.control.selected_index),
