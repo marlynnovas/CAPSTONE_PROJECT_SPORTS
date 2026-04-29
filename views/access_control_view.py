@@ -14,7 +14,7 @@ def AccessControlView(page: ft.Page):
         width=500, alignment=ft.Alignment(0, 0)
     )
 
-    #here the user puts the ID of the member they want to check status 
+    #here the user puts the ID of the member they want to check status of the person 
     member_id_field = ft.TextField(
         label="Enter Member ID", 
         width=300, 
