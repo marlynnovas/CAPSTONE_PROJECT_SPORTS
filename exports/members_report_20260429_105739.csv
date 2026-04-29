@@ -1,0 +1,4 @@
+id,full_name,email,phone,membership_status,start_date,end_date,plan_name,plan_price,access_status,computed_status
+1,m m,m,m,active,2026-04-21,2026-10-18,idk plan,566666.0,Access Allowed,active
+2,marlyn novas  de castillo,ajajaja,888,,,,,,Access Denied,expired
+3,Marlyn Ysabel,Novand@gmail.com,8675677677,active,2026-04-29,2026-10-26,idk plan,566666.0,Access Allowed,active

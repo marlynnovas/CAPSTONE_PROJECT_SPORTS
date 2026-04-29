@@ -1,7 +1,7 @@
 import flet as ft
 
 def SettingsView(page: ft.Page):
-    # Header
+
     header = ft.Row([
         ft.Column([
             ft.Text("Settings", size=32, weight=ft.FontWeight.BOLD),
@@ -9,7 +9,6 @@ def SettingsView(page: ft.Page):
         ], expand=True),
     ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN)
     
-    # Theme settings
     theme_switch = ft.Switch(
         label="Dark Mode",
         value=page.theme_mode == ft.ThemeMode.DARK,
@@ -20,7 +19,6 @@ def SettingsView(page: ft.Page):
         page.theme_mode = ft.ThemeMode.DARK if is_dark else ft.ThemeMode.LIGHT
         page.update()
     
-    # App info
     app_info = ft.Column([
         ft.Text("App Configuration", size=20, weight=ft.FontWeight.BOLD),
         ft.TextField(label="System Name", value="Sports Club Management", width=400),
@@ -41,7 +39,7 @@ def SettingsView(page: ft.Page):
         ft.Divider(height=2, color=ft.Colors.TRANSPARENT),
         ft.Container(
             content=app_info,
-            bgcolor=ft.Colors.BLACK,
+            bgcolor=ft.Colors.SURFACE_CONTAINER,
             border_radius=10,
             padding=30,
             expand=True

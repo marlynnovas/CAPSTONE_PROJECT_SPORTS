@@ -1,16 +1,16 @@
 from database.connection import get_connection
 
 class MemberService:
-#All this static method is that allow to not defined the class to create an objet every single time.
     @staticmethod
     def get_all_members():
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute("""
-            SELECT m.*,
-                   ms.status   AS membership_status,
-                   ms.end_date AS end_date,
-                   p.name      AS plan_name
+            SELECT m.id, m.first_name, m.last_name, m.email, m.phone, m.sport,
+                m.join_date, m.created_at,
+                ms.status   AS membership_status,
+                ms.end_date AS end_date,
+                p.name      AS plan_name
             FROM members m
             LEFT JOIN memberships ms ON m.id = ms.member_id
             LEFT JOIN plans p        ON ms.plan_id = p.id
@@ -65,30 +65,31 @@ class MemberService:
         return count
 
     @staticmethod
-    def create_member(first_name, last_name, email, phone):
+    def create_member(first_name, last_name, email, phone, sport=None):
         conn = get_connection()
         cursor = conn.cursor()
         try:
             cursor.execute(
-                "INSERT INTO members (first_name, last_name, email, phone,) VALUES (?, ?, ?, ?)"
-                (first_name, last_name, email, phone),
+                "INSERT INTO members (first_name, last_name, email, phone, sport) VALUES (?, ?, ?, ?, ?)",
+                (first_name, last_name, email, phone, sport),
             )
             conn.commit()
+            print(" Member inserted successfully")
             return cursor.lastrowid
         except Exception as e:
-            print(f"Error creating member: {e}")
+            print("Error creating member:", e)
             return None
         finally:
             conn.close()
 
     @staticmethod
-    def update_member(member_id, first_name, last_name, email, phone):
+    def update_member(member_id, first_name, last_name, email, phone, sport=None):
         conn = get_connection()
         cursor = conn.cursor()
         try:
             cursor.execute(
-                "UPDATE members SET first_name=?, last_name=?, email=?, phone=? WHERE id=?",
-                (first_name, last_name, email, phone, member_id)
+                "UPDATE members SET first_name=?, last_name=?, email=?, phone=?, sport=? WHERE id=?",
+                (first_name, last_name, email, phone, sport, member_id)
             )
             conn.commit()
             return True
@@ -113,3 +114,22 @@ class MemberService:
             return False
         finally:
             conn.close()
+
+    @staticmethod
+    def update_membership_status(member_id: int, status: str):
+        conn = get_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("""
+                UPDATE memberships 
+                SET status = ? 
+                WHERE id = (SELECT id FROM memberships WHERE member_id = ? ORDER BY id DESC LIMIT 1)
+            """, (status, member_id))
+            conn.commit()
+            return True
+        except Exception as e:
+            print(f"Error updating member status: {e}")
+            return False
+        finally:
+            conn.close()
+    

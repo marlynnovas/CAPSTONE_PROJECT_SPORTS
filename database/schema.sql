@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS members (
     last_name  TEXT NOT NULL,
     email      TEXT UNIQUE NOT NULL,
     phone      TEXT,
+    sport      TEXT,
     join_date  DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -57,7 +58,7 @@ CREATE VIEW IF NOT EXISTS active_members_view AS
 SELECT
     m.id,
     m.first_name || ' ' || m.last_name AS full_name,
-    m.email, m.phone, ms.status AS membership_status, ms.start_date, ms.end_date, p.name  AS plan_name, p.price AS plan_price,
+    m.email, m.phone, m.sport, ms.status AS membership_status, ms.start_date, ms.end_date, p.name  AS plan_name, p.price AS plan_price,
     CASE
         WHEN ms.end_date >= date('now') AND ms.status = 'active' THEN 'Access Allowed'
         WHEN ms.status = 'suspended'  THEN 'Suspended'
