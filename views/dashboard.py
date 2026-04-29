@@ -24,11 +24,11 @@ def DashboardView(page: ft.Page):
                 ], spacing=12),
                 ft.Text(subtitle, size=11, color=ft.Colors.ON_SURFACE_VARIANT),
             ], spacing=6),
-            bgcolor=ft.Colors.SURFACE_CONTAINER,
+            bgcolor=ft.Colors.DARK,
             border_radius=12, padding=18, expand=True
         )
         
-   
+
     first_name_input = ft.TextField(label="First Name")
     last_name_input  = ft.TextField(label="Last Name")
     email_input      = ft.TextField(label="Email")
@@ -110,7 +110,7 @@ def DashboardView(page: ft.Page):
                                 on_click=lambda _: setattr(log_dialog, "open", True)),
                 ], spacing=10),
             ]),
-            bgcolor=ft.Colors.SURFACE_CONTAINER, border_radius=12, padding=18
+            bgcolor=ft.Colors.DARK, border_radius=12, padding=18
     )
 
     total_m = MemberService.count_members()
@@ -151,7 +151,7 @@ def DashboardView(page: ft.Page):
             ft.Text("Recent Access Activity", size=18, weight=ft.FontWeight.BOLD),
             ft.Container(
                 content=ft.Column([activity_table], scroll=ft.ScrollMode.AUTO, expand=True),
-                bgcolor=ft.Colors.SURFACE_CONTAINER, border_radius=12, padding=16, expand=True
+                bgcolor=ft.Colors.DARK, border_radius=12, padding=16, expand=True
             ),
         ], spacing=16, expand=True, scroll=ft.ScrollMode.AUTO),
         padding=28, expand=True
